@@ -350,6 +350,37 @@ resource "azurerm_public_ip" "main" {
   }
 }
 
+# Open NSG Port http
+resource "azurerm_network_security_rule" "ingress_public_allow_nginx_80" {
+  name                        = "AllowNginx80"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "Internet"
+  destination_address_prefix  = azurerm_public_ip.main.ip_address
+  resource_group_name         = module.resource_group.name
+  network_security_group_name = module.network.subnet_nsg_names["iaas-public"]
+}
+
+# Open NSG Port https
+resource "azurerm_network_security_rule" "ingress_public_allow_nginx_443" {
+  name                        = "AllowNginx443"
+  priority                    = 101
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "Internet"
+  destination_address_prefix  = azurerm_public_ip.main.ip_address
+  resource_group_name         = module.resource_group.name
+  network_security_group_name = module.network.subnet_nsg_names["iaas-public"]
+}
+
+# Deploy Nginx Ingress Controller
 module "nginx_ingress" {
   source     = "git::https://github.com/danielscholl-terraform/module-nginx-ingress?ref=v1.0.0"
   depends_on = [module.kubernetes, module.certificate_manager]
@@ -389,6 +420,8 @@ module "elastic_cloud" {
       storage    = 128
       cpu        = 2
       memory     = 8
+      ingress    = true
+      domain     = format("%s-%s.%s.cloudapp.azure.com", module.metadata.names.product, module.resource_group.random, module.resource_group.location)
     }
   }
 }
