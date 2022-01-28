@@ -2,7 +2,7 @@
 .Synopsis
    Terraform Main Control
 .DESCRIPTION
-   This file holds the main control and resoures for the aks-hyperwave cluster.
+   This file holds the main control and resoures for an elastic search cluster.
 */
 
 terraform {
