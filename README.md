@@ -43,7 +43,10 @@ The following Software Components are installed in AKS
 
 > **Note** Prior to deploying modify if desired the naming patterns in modules/naming-rules/custom.json
 
-1. Execute the following commands to provision resources.
+Execute the following commands to provision resources and provide answers to the following variables.
+
+- email --> The admin email for the certificate
+- environment --> (sandbox, dev, test, prod)
 
 ```bash
 # Initialize and download the terraform modules required

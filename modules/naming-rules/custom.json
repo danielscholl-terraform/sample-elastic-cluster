@@ -8,6 +8,7 @@
     "allowed_values": {
       "sandbox": "Sandbox",
       "dev": "Development",
+      "test": "Testing",
       "prod": "Production"
     }
   },

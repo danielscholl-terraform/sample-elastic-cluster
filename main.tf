@@ -76,6 +76,11 @@ variable "location" {
   type        = string
 }
 
+variable "environment" {
+  description = "The environment name.  (sandbox, dev, test, prod)"
+  type        = string
+}
+
 variable "randomization_level" {
   description = "Number of additional random characters to include in resource names to insulate against unexpected resource name collisions."
   type        = number
@@ -138,7 +143,7 @@ module "metadata" {
 
   location    = var.location
   product     = var.name
-  environment = "sandbox"
+  environment = var.environment
 
   additional_tags = {
     "repo"  = "https://github.com/danielscholl-terraform/sample-elastic-cluster"
@@ -402,7 +407,7 @@ module "nginx_ingress" {
 # Elastic Cloud
 #-------------------------------
 module "elastic_cloud" {
-  source     = "git::https://github.com/danielscholl-terraform/module-elastic-cloud?ref=main"
+  source     = "git::https://github.com/danielscholl-terraform/module-elastic-cloud?ref=v1.0.0"
   depends_on = [module.kubernetes, module.certificate_manager, module.nginx_ingress]
 
   providers = { helm = helm.aks }
@@ -421,6 +426,7 @@ module "elastic_cloud" {
       cpu        = 2
       memory     = 8
       ingress    = true
+      issuer     = "production"
       domain     = format("%s-%s.%s.cloudapp.azure.com", module.metadata.names.product, module.resource_group.random, module.resource_group.location)
     }
   }
