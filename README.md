@@ -4,9 +4,7 @@ This project will build out the Azure resources necessary for the deployment of 
 
 > **Note:** This project uses [VSCode Remote Containers](https://code.visualstudio.com/docs/remote/containers).
 
-Set up your local environment variables
-
-*Note: environment variables are automatically sourced by direnv after running (direnv allow)*
+Set up your local environment variables which will be automatically sourced by direnv after running (direnv allow)
 
 Required Environment Variables (.envrc)
 ```bash
