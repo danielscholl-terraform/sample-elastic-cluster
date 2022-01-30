@@ -4,19 +4,19 @@ variable "naming_rules" {
 }
 
 variable "environment" {
-  description = "oak.environment (./modules/naming-rules#customenvironment)"
+  description = "iac.environment (./modules/naming-rules#customenvironment)"
   type        = string
 }
 
 variable "location" {
-  description = "oak.azureRegion (./modules/naming-rules#customazureregion)"
+  description = "iac.azureRegion (./modules/naming-rules#customazureregion)"
   type        = string
 }
 
 
 # Optional tags
 variable "product" {
-  description = "oak.productGroup (./modules/naming-rules#customproductgroup) or [a-z0-9]{2,12}"
+  description = "iac.productGroup (./modules/naming-rules#customproductgroup) or [a-z0-9]{2,12}"
   type        = string
   default     = ""
 

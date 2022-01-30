@@ -19,7 +19,7 @@
     "maxlength": "12",
     "rule": "az",
     "allowed_values": {
-      "elasticcloud": "Elastic Cloud on Kubernetes"
+      "eck": "Elastic Cloud on Kubernetes"
     }
   },
   "azureRegion": {

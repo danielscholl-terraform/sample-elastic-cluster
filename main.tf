@@ -103,7 +103,8 @@ variable "agent_vm_size" {
 }
 
 variable "email_address" {
-  type = string
+  description = "Admin Email for https certificate"
+  type        = string
 }
 
 
