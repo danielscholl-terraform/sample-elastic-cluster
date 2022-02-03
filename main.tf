@@ -388,7 +388,7 @@ resource "azurerm_network_security_rule" "ingress_public_allow_nginx_443" {
 
 # Deploy Nginx Ingress Controller
 module "nginx_ingress" {
-  source     = "git::https://github.com/danielscholl-terraform/module-nginx-ingress?ref=v1.0.0"
+  source     = "git::https://github.com/danielscholl-terraform/module-nginx-ingress?ref=main"
   depends_on = [module.kubernetes, module.certificate_manager]
 
   providers = { helm = helm.aks }
@@ -396,6 +396,8 @@ module "nginx_ingress" {
   name                        = "ingress-nginx"
   namespace                   = "nginx-system"
   kubernetes_create_namespace = true
+  autoscaling                 = true
+  autoscaling_min_replicas    = 1
 
   additional_yaml_config = yamlencode({ "nodeSelector" : { "agentpool" : module.metadata.names.product } })
 
